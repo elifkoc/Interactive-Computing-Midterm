@@ -6,4 +6,6 @@ body {
   border-style: solid;
   border-width: 1px;
   padding: 20px;
+  position: absolute;
+  background-color: antiquewhite;
 }    
