@@ -6,22 +6,37 @@ var searchInput;
 var postInput;
 var tweetsArray = [];
 var position = 0;
-var par;
-var par2;
 
+var leftSwipeButton;
+var rightSwipeButton;
+
+var prof;
+var tweet, link, text;
+var outOfTweets;
+
+function preload() {
+  //img = loadImage();
+}
 function setup() {
-  noCanvas();
-
+  createCanvas(800, 800);
+  
+  //Create Left Swipe Button
+  leftSwipeButton = createButton('x');
+  leftSwipeButton.position(50, 220);
+  leftSwipeButton.mousePressed(leftSwipe);  
+  
+  //Create right Swipe Button
+  rightSwipeButton = createButton('♡');
+  rightSwipeButton.position(560, 220);
+  rightSwipeButton.mousePressed(rightSwipe);
+  
+  
   // Get all the HTML elements
   searchInput = select('#searchInput');
-  var button1 = select('#searchButton');
-  var nextButton = select('#next');
-  var likeButton = select('#like');
+  var searchButton = select('#searchButton');
+
   // Assign the callbacks to the functions
-  button1.mousePressed(getTweets);
-  nextButton.mousePressed(nextTweet);
-  likeButton.mousePressed(chosenTweet);
-  
+  searchButton.mousePressed(getTweets);  
 }
 
 // Execute an API call to our own API
@@ -43,23 +58,36 @@ function gotTweets(tweets, position) {
 
 // Display Tweet
 function displayTweet() {
-
-   par = createDiv(tweetsArray[position].text);
-     par2 = createDiv(tweetsArray[position].user.screen_name);
-    par.class('text');
-    par2.class('id');
-    par2.parent(par);
+  tweet = createDiv("");
+  tweet.class('tweet');
+  
+  text = createP(tweetsArray[position].text);
+  link = createA('https://www.twitter.com/' + tweetsArray[position].user.screen_name, tweetsArray[position].user.screen_name);
+  //text.html(link + tweetsArray[position].text)
+  link.parent(tweet);
+  text.parent(tweet);
+  tweet.position(50, 250);
+  
+  
   
 }
 
 //Go to the next tweet
-function nextTweet() {  
-  position++;
-  displayTweet();
+function leftSwipe() {
+  if ((position+2) <= tweetsArray.length) {
+    position++;
+    displayTweet();
+  }
+  else {
+    tweet = createDiv("Sorry -- that's all we've got! Wanna try again?  ");
+    tweet.position(50, 250);
+    tweet.class('tweet');
+
+  }
 
 }
 
-function chosenTweet() {
+function rightSwipe() {
   var choice = tweetsArray[position];
 }
 

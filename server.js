@@ -1,7 +1,5 @@
-// A2Z F16
-// Daniel Shiffman
-// http://shiffman.net/a2z
-// https://github.com/shiffman/A2Z-F16
+   
+        
 
 // Using express: http://expressjs.com/
 var express = require('express');
@@ -17,6 +15,7 @@ function listen() {
   var host = server.address().address;
   var port = server.address().port;
   console.log('Example app listening at http://' + host + ':' + port);
+  
 }
 
 // This is for hosting files
@@ -37,7 +36,6 @@ var T = new Twit(config);
 // This route searches twitter
 app.get('/tweets/:query', getTweets);
 
-// Callback
 function getTweets(req, res) {
   // Here's the string we are seraching for
   var query = req.params.query;
@@ -47,30 +45,23 @@ function getTweets(req, res) {
 
   // Callback
   function gotData(err, data) {
+
     // Get the tweets
     var tweets = data.statuses;
+    
+    //Selected tweets
+    var bestTweets = [];
+
+    for (var tweet in tweets) {
+      var tweetObj = tweets[tweet];
+      if (!(tweetObj.text.includes("RT")) && !(tweetObj.text.includes("http"))) {
+        bestTweets.push(tweetObj);
+        console.log(tweetObj);
+      }
+   }
     // Spit it back out so that p5 can load it!
-    res.send(tweets);
+    //console.log(best_tweets);
+    res.send(bestTweets);
   };
 }
 
-// This is a route for posting a tweet
-app.get('/tweet', postTweet);
-
-function postTweet(req, res) {
-  // What did we ask to tweet?
-  var statement = req.query.status;
-
-  // Post that tweet!
-  T.post('statuses/update', { status: statement }, tweeted);
-
-  function tweeted(err, reply) {
-    // If there was an error let's respond with that error
-    if (err) {
-      res.send(err);
-    // Otherwise let's respond back that it worked ok!
-    } else {
-      res.send(reply);
-    }
-  };
-}
