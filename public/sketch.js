@@ -11,18 +11,19 @@ var leftSwipeButton;
 var rightSwipeButton;
 
 var prof;
-var tweet, link, text;
+var tweet, link, body, response;
 var outOfTweets;
 
 function preload() {
   //img = loadImage();
 }
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(1000, 1000);
+  background(230, 250, 250);
   
   //Create Left Swipe Button
   leftSwipeButton = createButton('x');
-  leftSwipeButton.position(50, 220);
+  leftSwipeButton.position(100, 220);
   leftSwipeButton.mousePressed(leftSwipe);  
   
   //Create right Swipe Button
@@ -61,12 +62,12 @@ function displayTweet() {
   tweet = createDiv("");
   tweet.class('tweet');
   
-  text = createP(tweetsArray[position].text);
+  body = createP(tweetsArray[position].text);
   link = createA('https://www.twitter.com/' + tweetsArray[position].user.screen_name, tweetsArray[position].user.screen_name);
   //text.html(link + tweetsArray[position].text)
   link.parent(tweet);
-  text.parent(tweet);
-  tweet.position(50, 250);
+  body.parent(tweet);
+  tweet.position(200, 250);
   
   
   
@@ -74,20 +75,33 @@ function displayTweet() {
 
 //Go to the next tweet
 function leftSwipe() {
-  if ((position+2) <= tweetsArray.length) {
-    position++;
-    displayTweet();
-  }
+  if ((position+2) <= tweetsArray.length)     {
+      tweet.remove();
+      position++;
+      displayTweet();
+    }
   else {
-    tweet = createDiv("Sorry -- that's all we've got! Wanna try again?  ");
-    tweet.position(50, 250);
+    tweet.remove();
+    tweet = createDiv("Sorry -- that's all the tweets we've got in this batch! Click search again to see more!");
+    tweet.position(200, 250);
     tweet.class('tweet');
-
   }
 
 }
 
 function rightSwipe() {
   var choice = tweetsArray[position];
+  
+  response = createP("Here's what we know about " + choice.user.screen_name +  " so far: They've got " + choice.user.followers_count + " followers, and they follow " + choice.user.friends_count + " people."); 
+  response.class('response');
+  response.position(100, 400);  
+  
+  if (choice.user.description) {
+    desc = createP(choice.user.description); 
+    desc.class('desc');
+    desc.position(100, 440);
+  
+  }
+  
 }
 
