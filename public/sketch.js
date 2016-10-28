@@ -11,7 +11,7 @@ var leftSwipeButton;
 var rightSwipeButton;
 
 var prof;
-var tweet, link, body, response;
+var tweet, link, body, response, emojis, scale;
 var outOfTweets;
 
 function preload() {
@@ -19,17 +19,7 @@ function preload() {
 }
 function setup() {
   createCanvas(1000, 1000);
-  background(230, 250, 250);
   
-  //Create Left Swipe Button
-  leftSwipeButton = createButton('x');
-  leftSwipeButton.position(100, 220);
-  leftSwipeButton.mousePressed(leftSwipe);  
-  
-  //Create right Swipe Button
-  rightSwipeButton = createButton('♡');
-  rightSwipeButton.position(560, 220);
-  rightSwipeButton.mousePressed(rightSwipe);
   
   
   // Get all the HTML elements
@@ -67,8 +57,17 @@ function displayTweet() {
   //text.html(link + tweetsArray[position].text)
   link.parent(tweet);
   body.parent(tweet);
-  tweet.position(200, 250);
+  tweet.position(250, 400);
   
+  //Create Left Swipe Button
+  leftSwipeButton = createButton('x');
+  leftSwipeButton.position(250, 600);
+  leftSwipeButton.mousePressed(leftSwipe);  
+  
+  //Create right Swipe Button
+  rightSwipeButton = createButton('♡');
+  rightSwipeButton.position(870, 600);
+  rightSwipeButton.mousePressed(rightSwipe);
   
   
 }
@@ -83,7 +82,7 @@ function leftSwipe() {
   else {
     tweet.remove();
     tweet = createDiv("Sorry -- that's all the tweets we've got in this batch! Click search again to see more!");
-    tweet.position(200, 250);
+    tweet.position(250, 400);
     tweet.class('tweet');
   }
 
@@ -92,16 +91,37 @@ function leftSwipe() {
 function rightSwipe() {
   var choice = tweetsArray[position];
   
-  response = createP("Here's what we know about " + choice.user.screen_name +  " so far: They've got " + choice.user.followers_count + " followers, and they follow " + choice.user.friends_count + " people."); 
+  //make bullet points
+  response = createP("So. " + choice.user.screen_name +  ". so far: They've got " + choice.user.followers_count + " followers, and they follow " + choice.user.friends_count + " people."); 
   response.class('response');
-  response.position(100, 400);  
+  response.position(200, 700); 
+  
+  emotionScale();
   
   if (choice.user.description) {
     desc = createP(choice.user.description); 
     desc.class('desc');
-    desc.position(100, 440);
+    desc.position(200, 740);
   
   }
   
+  
+}
+
+function emotionScale() {
+  
+  scale = createDiv("This tweeter seems...");
+  
+  emojis = createRadio();
+  emojis.option("😡"); //angry
+  emojis.option("😔"); //sad
+  emojis.option("👹"); //trolling
+  emojis.option("🤔"); //thoughtful
+  emojis.option("😍"); //loving trump
+  emojis.option("😐"); //jaded
+  
+  scale.class('scale');
+  emojis.parent(scale);
+  scale.position(120, 820);
 }
 

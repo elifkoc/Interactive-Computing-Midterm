@@ -1,20 +1,65 @@
 body {
   padding: 20px 80px;
-  font-family: "Verdana", sans-serif;
+  font-family: "Karla", sans-serif;
   max-width: 1000px;
+  font-size: 18px;
+
+}
+
+a {
+  color: rgb(90,126,202);
 }
 
 .intro {
   width: 1000px;
+  padding: 20px;
 }
 
+.head {
+  font-size: 40px;
+  text-align: center;
+  color: rgb(90,126,202);
+  font-weight: 200;
+}
+
+.head span {
+  color: rgb(204,153,162);
+}
+
+.search {
+  margin: auto;
+  width: 750px;
+  font-size: 30px;
+}
+
+select {
+  background-color: white;
+  border: none;
+  color: black;
+  text-align: center;
+  display: inline-block;
+  font-size: 25px;
+  margin-right: 15px;
+  margin-top: 10px;
+}
+
+button {
+
+  background-color: rgb(121,121,119);
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-size: 25px;
+
+}
 #defaultCanvas0 {
 }
 .tweet {
   margin: auto;
   width: 600px;
   padding: 20px;
-  background-color: white;
-  border: medium solid blue;
+  font-size: 20px;
+  border: 10px dashed rgb(204,153,162);
 }    
 
