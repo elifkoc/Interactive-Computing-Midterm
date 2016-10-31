@@ -57,9 +57,30 @@ button {
 }
 .tweet {
   margin: auto;
+  background-color: white;
   width: 600px;
   padding: 20px;
   font-size: 20px;
   border: 10px dashed rgb(204,153,162);
 }    
 
+.about {
+  background-color: rgba(131,150,131, .5);
+  padding: 10px;
+  border-radius: 5px;
+  width: 500px;
+}
+
+.emScale {
+  background-color: rgba(221,188,147, .5);
+  padding: 10px;
+  border-radius: 5px;
+  width: 500px;
+}
+.topic {
+  background-color: rgba(200,80,147, .5);
+  padding: 10px;
+  border-radius: 5px;
+  width: 500px;
+  height: 500px;
+}
